@@ -112,6 +112,7 @@ setData("adress", "ul. " + data['adress1'] + "<br>" + data['adress2'] + " " + da
 setData("motherName", data['motherName']);
 setData("fatherName", data['fatherName']);
 setData("seria_numer", data['seria_numer']);
+setData("waznosc", data['waznosc']);
 
 if (localStorage.getItem("homeDate") == null){
   var homeDay = getRandom(1, 25);
