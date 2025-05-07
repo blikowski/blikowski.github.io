@@ -318,32 +318,7 @@
         });
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const birthdayText = document.getElementById("birthday").textContent.trim();
-    if (!birthdayText) return;
-
-    const [day, month, year] = birthdayText.split(".");
-    const birthDate = new Date(+year, +month - 1, +day);
-    const adultDate = new Date(birthDate);
-    adultDate.setFullYear(adultDate.getFullYear() + 18); // 18. urodziny
-
-    const today = new Date();
-    const randomTimestamp = adultDate.getTime() + Math.random() * (today.getTime() - adultDate.getTime());
-    const issueDate = new Date(randomTimestamp);
-    
-    const expirationDate = new Date(issueDate);
-    expirationDate.setFullYear(expirationDate.getFullYear() + 10);
-
-    function formatDate(date) {
-        const d = date.getDate().toString().padStart(2, '0');
-        const m = (date.getMonth() + 1).toString().padStart(2, '0');
-        const y = date.getFullYear();
-        return `${d}.${m}.${y}`;
-    }
-
-    document.getElementById("wydany").textContent = formatDate(issueDate);
-    document.getElementById("waznosc").textContent = formatDate(expirationDate);
-});
+        
     </script>
     
 </body>
