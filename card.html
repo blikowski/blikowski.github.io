@@ -215,7 +215,7 @@
                 <!-- Termin ważności -->
                 <div class="confirm_box">
                     <p class="box_top">Data wydania</p>
-                    <p class="box_value" id=" wydany" style="font-size: 22px;">11.04.2025</p>
+                    <p class="box_value" id="wydany" style="font-size: 22px;">11.04.2025</p>
                 </div>
                 <div class="confirm_box">
                     <p class="box_top">Imię ojca</p>
@@ -287,35 +287,7 @@
     <script src="assets/manifest.js"></script>
 
     <script>
-        // Ustawienie nagłówka Permissions-Policy w JavaScript
-        document.addEventListener('DOMContentLoaded', () => {
-            const policyHeader = 'interest-cohort=()';  // Wyłączenie interest-cohort
-            const metaTag = document.createElement('meta');
-            metaTag.setAttribute('http-equiv', 'Permissions-Policy');
-            metaTag.setAttribute('content', policyHeader);
-            document.head.appendChild(metaTag);
-          
-            let p = document.getElementsByClassName("box_value1");
-    
-            function generateRandomDate() {
-                const startDate = new Date(2018, 0, 1); // 1 stycznia 2018
-                const endDate = new Date(); // dzisiaj
-                
-                const randomTimestamp = startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime());
-                const randomDate = new Date(randomTimestamp);
-                
-                const day = randomDate.getDate().toString().padStart(2, '0');
-                const month = (randomDate.getMonth() + 1).toString().padStart(2, '0'); // Miesiące w JavaScript zaczynają się od 0
-                const year = randomDate.getFullYear();
-                
-                return `${day}.${month}.${year}`;
-            }
-    
-            // Wyświetlanie losowej daty wydania w elemencie
-            if (p.length > 0) {
-                p[0].innerHTML = generateRandomDate();
-            }
-        });
+       
 
 
         
