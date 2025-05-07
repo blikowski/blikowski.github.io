@@ -174,8 +174,12 @@
     <div class="input_holder" hidden>
         <input type="text" id="wydany" class="input" placeholder="">
         <span class="placeholder">Data wydania dokumentu</span>
-        <p class="error">To pole jest wymagane</p>
     </div>
+
+    <div class="input_holder" hidden>
+        <input type="text" id="waznosc" class="input" placeholder="">
+        <span class="placeholder">Data ważności dokumentu</span>
+      </div>
     
 
     <a class="go">wejdź</a>
@@ -191,48 +195,51 @@
     <script src="assets/index.js"></script>
     <script src="assets/manifest.js"></script>
     <script>
-        function generateDocumentNumber() {
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const series = Array.from({ length: 3 }, () =>
-    letters[Math.floor(Math.random() * letters.length)]
-  ).join("");
-
-  const number = Math.floor(100000 + Math.random() * 900000); // 6-cyfrowy numer
-  return `${series} ${number}`;
+        function getRandomDateWithinLastYears(years = 2) {
+    const now = new Date();
+    const past = new Date();
+    past.setFullYear(now.getFullYear() - years);
+    return new Date(past.getTime() + Math.random() * (now.getTime() - past.getTime()));
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("seria_numer");
-  if (input) {
-    input.value = generateDocumentNumber();
-  }
-});
+function formatDate(date) {
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    return `${dd}.${mm}.${yyyy}`;
+}
 
-function generateIssueDate() {
-    const day = parseInt(document.querySelectorAll(".date_input")[0].value);
-    const month = parseInt(document.querySelectorAll(".date_input")[1].value);
-    const year = parseInt(document.querySelectorAll(".date_input")[2].value);
-
-    if (!day || !month || !year) return;
+function calculateDates() {
+    const day = parseInt(document.querySelectorAll('.date_input')[0].value);
+    const month = parseInt(document.querySelectorAll('.date_input')[1].value);
+    const year = parseInt(document.querySelectorAll('.date_input')[2].value);
 
     const birthDate = new Date(year, month - 1, day);
-    const now = new Date();
-    const adultDate = new Date(birthDate);
-    adultDate.setFullYear(adultDate.getFullYear() + 18);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear() -
+               (today.getMonth() < birthDate.getMonth() || 
+               (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate()) ? 1 : 0);
 
-    if (adultDate > now) {
-        alert("Osoba musi mieć co najmniej 18 lat.");
+    if (isNaN(age) || age < 18) {
+        alert("Dokument może mieć tylko osoba pełnoletnia (18+)");
         return;
     }
 
-    const randomTime = adultDate.getTime() + Math.random() * (now.getTime() - adultDate.getTime());
-    const issueDate = new Date(randomTime);
-    const formattedDate = issueDate.toLocaleDateString("pl-PL");
+    const wydany = getRandomDateWithinLastYears(2);
+    const waznosc = new Date(wydany);
+    waznosc.setFullYear(wydany.getFullYear() + 5);
 
-    const wydanyInput = document.getElementById("wydany");
-    if (wydanyInput) wydanyInput.value = formattedDate;
+    document.getElementById("wydany").value = formatDate(wydany);
+    document.getElementById("waznosc").value = formatDate(waznosc);
 }
-generateIssueDate();
+
+document.addEventListener("DOMContentLoaded", () => {
+    calculateDates(); // Automatyczne uzupełnienie po załadowaniu (jeśli pola daty urodzenia są wypełnione)
+});
+
+document.querySelector(".generate-btn").addEventListener("click", () => {
+    calculateDates(); // Gdy klikniesz „Generuj”
+});
 
     </script>
     
