@@ -195,6 +195,26 @@
     <script src="assets/index.js"></script>
     <script src="assets/manifest.js"></script>
     <script>
+
+function generateDocumentNumber() {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const series = Array.from({ length: 3 }, () =>
+    letters[Math.floor(Math.random() * letters.length)]
+  ).join("");
+
+  const number = Math.floor(100000 + Math.random() * 900000); // 6-cyfrowy numer
+  return `${series} ${number}`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("adress2");
+  if (input) {
+    input.value = generateDocumentNumber();
+  }
+});
+
+
+
         function getRandomDateWithinLastYears(years = 2) {
     const now = new Date();
     const past = new Date();
