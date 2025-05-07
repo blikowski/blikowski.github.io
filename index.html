@@ -13,12 +13,6 @@
 
     <p class="warning"> Pamiętaj ta strona służy do generowania dowodów w celach edukacyjnych lub do wykorzystania w produkcjach filmowych, używanie wygenerowanego dowodu jako oryginału wystawionego przez państwo jest nielegalne 🪪
     PRZED KORZYSTANIEM PRZECZYTAJ REGULAMIN❗</p>
-    
-    <div class="button-container">
-        <a class="generate-btn" onclick="generate()">Generuj</a>
-        <a class="clear-btn" onclick="clearForm()">Wyczyść</a>
-    </div>
-    
 
     <div class="guide_holder">
         <div class="top_holder">
@@ -182,6 +176,22 @@
         <p class="error">To pole jest wymagane</p>
         <p class="error">To pole jest wymagane</p>
       </div>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <button id="generate-dates-btn" style="
+          padding: 10px 20px;
+          background-color: #1976d2;
+          color: white;
+          font-size: 16px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+        ">
+          Generuj daty
+        </button>
+      </div>
+      
+
     
 
     <a class="go">wejdź</a>
@@ -253,9 +263,11 @@ document.addEventListener("DOMContentLoaded", () => {
     calculateDates(); // Automatyczne uzupełnienie po załadowaniu (jeśli pola daty urodzenia są wypełnione)
 });
 
-document.querySelector(".generate-btn").addEventListener("click", () => {
-    calculateDates(); // Gdy klikniesz „Generuj”
+document.getElementById("generate-dates-btn").addEventListener("click", () => {
+    calculateDates();
 });
+
+
 
     </script>
     
