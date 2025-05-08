@@ -153,11 +153,15 @@ if (month < 10){
 var pesel = year.toString().substring(2) + month + day + later + "7";
 setData("pesel", pesel)
 
-function setData(id, value){
-
-  document.getElementById(id).innerHTML = value;
-
+function setData(id, value) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.innerHTML = value;
+  } else {
+    console.warn(`Nie znaleziono elementu o id: ${id}`);
+  }
 }
+
 
 function getRandom(min, max) {
   return parseInt(Math.random() * (max - min) + min);
