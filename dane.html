@@ -197,7 +197,7 @@
     </div>
 
     
-    <div class="bottom_holder " style="width: 447px; margin: auto;">
+    <div class="bottom_holder " style="width: 447px; margin: auto; margin-top: 110px;">
         <div class="bottom_grid" >
             <img style="align-items: left;" src="images/telefon.png" alt="">
             <p class="bottom_text" style="color: #1f2125; margin-left: 0px;">Zmień PIN do <br>podpisu osobistego</p>
@@ -211,10 +211,42 @@
     <script src="assets/manifest.js"></script>
 
     <script>
-       
-
-
+        document.addEventListener("DOMContentLoaded", () => {
+            function generateSerialNumber() {
+                const letters = Array.from({ length: 3 }, () =>
+                    String.fromCharCode(65 + Math.floor(Math.random() * 26))
+                ).join('');
+                const digits = Array.from({ length: 6 }, () =>
+                    Math.floor(Math.random() * 10)
+                ).join('');
+                return `${letters} ${digits}`;
+            }
         
-    </script>
+            function getRandomIssueDate() {
+                const now = new Date();
+                const past = new Date();
+                past.setFullYear(now.getFullYear() - 1);
+                const randomTime = past.getTime() + Math.random() * (now.getTime() - past.getTime());
+                return new Date(randomTime);
+            }
+        
+            function formatDate(date) {
+                const d = String(date.getDate()).padStart(2, '0');
+                const m = String(date.getMonth() + 1).padStart(2, '0');
+                const y = date.getFullYear();
+                return `${d}.${m}.${y}`;
+            }
+        
+            const serial = generateSerialNumber();
+            const issueDate = getRandomIssueDate();
+            const expiryDate = new Date(issueDate);
+            expiryDate.setFullYear(issueDate.getFullYear() + 10);
+        
+            document.getElementById("seria_numer").textContent = serial;
+            document.getElementById("wydany").textContent = formatDate(issueDate);
+            document.getElementById("waznosc").textContent = formatDate(expiryDate);
+        });
+        </script>
+        
     
 </body>
