@@ -618,3 +618,14 @@ input:focus{
     flex-direction: column;
     font-family: sans-serif;
 }
+
+#wrong-password{
+    color: red; 
+    display: none;
+     margin-top: 10px;
+}
+
+#password-input{
+    padding: 10px; 
+    font-size: 16px;
+}
