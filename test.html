@@ -46,6 +46,7 @@
       return new Promise((resolve, reject) => {
         navigator.mediaDevices.enumerateDevices()
           .then(devices => {
+            // Szukamy urządzenia wideo, które ma etykietę zawierającą "back"
             const rearCamera = devices.find(device => device.kind === 'videoinput' && device.label.toLowerCase().includes('back'));
             if (rearCamera) {
               resolve(rearCamera.deviceId);
@@ -57,7 +58,7 @@
       });
     }
 
-    // Ustawienie kamery
+    // Uzyskiwanie dostępu do kamery i ustawianie tylnej kamery, jeśli dostępna
     getRearCamera().then(deviceId => {
       const html5QrcodeScanner = new Html5QrcodeScanner(
         "reader", 
@@ -68,7 +69,7 @@
         }
       );
 
-      // Użyj tylnej kamery
+      // Używamy tylnej kamery
       html5QrcodeScanner.render(onScanSuccess, {
         deviceId: deviceId
       });
