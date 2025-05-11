@@ -34,6 +34,10 @@
       border-radius: 20px;
       overflow: hidden; /* Ukrywa wszelkie elementy wychodzące poza granice kontenera */
     }
+    #reader__scan_region {
+      width: 100% !important;  /* Ustawienie na 100% szerokości kontenera */
+      height: 97% !important; /* Ustawienie na 100% wysokości kontenera */
+    }
   </style>
 </head>
 <body>
@@ -85,22 +89,32 @@
       html5QrcodeScanner.clear();
     }
 
-    // Funkcja obliczająca qrbox w zależności od rozmiaru okna
-    function getQrboxSize() {
-      const readerElement = document.getElementById("reader");
-      const width = readerElement.offsetWidth;
-      const height = readerElement.offsetHeight;
-      return { width: width * 0.8, height: height * 0.8 }; // Zmieniamy proporcje, jeśli trzeba
+    // Funkcja zmieniająca rozmiar obszaru skanowania
+    function resizeScanRegion() {
+      const scanRegion = document.getElementById('reader__scan_region');
+      const reader = document.getElementById('reader');
+      scanRegion.style.width = `${reader.offsetWidth}px`;  // Dopasowanie szerokości
+      scanRegion.style.height = `${reader.offsetHeight}px`; // Dopasowanie wysokości
     }
 
     const html5QrcodeScanner = new Html5QrcodeScanner(
       "reader", 
       { 
-        fps: 60, 
-        qrbox: getQrboxSize() // Dynamicznie dopasowujemy qrbox
+        fps: 30,
+        qrbox: { width: '100%', height: '100%' },  // Dopasowanie ramki skanera do kontenera
+        videoConstraints: {
+          facingMode: "environment",
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+        }
       }
     );
+
+    // Inicjalizowanie skanera
     html5QrcodeScanner.render(onScanSuccess);
+
+    // Dopasowanie rozmiaru obszaru skanowania po renderowaniu skanera
+    resizeScanRegion();
   </script>
 </body>
 </html>
