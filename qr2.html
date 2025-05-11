@@ -14,20 +14,20 @@
   <meta name="mobile-web-app-capable" content="yes">
   <style>
     .main_wrapper {
+      margin-bottom: 0px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 200px); /* 100% wysokości minus paski */
+  align-items: center;/* 100% wysokości minus paski */
   padding: 20px 0;
 }
     #camera-container {
   border-radius: 20px;
   width: 90%;
-  max-width: 400px;
+  max-width: 550px;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border: 2px solid #333;
-  height: 600px;
+  border: 2px solid none;
+  height: 650px;
   position: relative;
 }
     #video {
@@ -40,8 +40,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 140px;
-  height: 140px;
+  width: 200px;
+  height: 200px;
   transform: translate(-50%, -50%);
   pointer-events: none; /* nie blokuje kliknięć w kamerę */
 }
@@ -49,8 +49,8 @@
 /* Wspólne style narożników */
 .corner {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border: 5px solid white;
   box-sizing: border-box;
 }
@@ -90,6 +90,21 @@
   border-top: none;
   border-bottom-right-radius: 25px
 }
+.buttonn{
+    width: 400px;
+    text-align: center;
+    height: 50px;
+    border: 1px solid ;
+    border-radius: 40px;
+    box-shadow: none;
+    background-color: #f5f6fb;
+    color: rgb(6, 71, 146);
+    font-size: 20px;
+    font-family: poppins;
+}
+.przycisk{
+    text-align: center;
+}
 
   </style>
 </head>
@@ -127,7 +142,8 @@
       </div>
     </div>
   </div>
-  <div class="main_wrapper">
+  <p style="margin-top: 70px; margin-left: 30px; margin-bottom: 0px; font-size: 14px;">Umieść kod QR w ramce, aby go zeskanować.</p>
+  <div class="main_wrapper" style="margin-top: 0px;">
   <div id="camera-container">
     <video id="video" autoplay playsinline></video>
     <div class="scan-frame">
@@ -137,8 +153,10 @@
   <div class="corner br"></div>
 </div>
 
-
   </div>
+  </div>
+  <div class="przycisk">
+  <button class="buttonn">Wpisz kod</button>
   </div>
   <script>
     async function startCamera() {
