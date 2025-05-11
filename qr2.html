@@ -3,15 +3,15 @@
 <head>
   <title>mObywatel</title>
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="assets/card.css?v=1.2">
-    <link rel="stylesheet" href="assets/main.css">
-    <link rel="icon" type="image/x-icon" href="images/otM5jOA.png">
-    <link rel="apple-touch-icon" href="images/otM5jOA.png">
-    <link rel="shortcut icon" href="images/otM5jOA.png">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="assets/card.css?v=1.2">
+  <link rel="stylesheet" href="assets/main.css">
+  <link rel="icon" type="image/x-icon" href="images/otM5jOA.png">
+  <link rel="apple-touch-icon" href="images/otM5jOA.png">
+  <link rel="shortcut icon" href="images/otM5jOA.png">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
   <style>
     /* Wyśrodkowanie zawartości na stronie */
     body {
@@ -25,49 +25,51 @@
       text-align: center;
       width: 400px;
       height: 700px;
+      padding: 10px;
+      box-sizing: border-box;
     }
     #reader {
-        border-radius: 20px;
-      width: 100%px; /* Sprawia, że skaner zajmuje całą dostępną szerokość */
-      height: 100%; /* Skaner zajmuje całą wysokość kontenera */
+      width: 100%; /* Skaner będzie zajmował całą szerokość kontenera */
+      height: 100%; /* Skaner będzie zajmował całą wysokość kontenera */
+      border-radius: 20px;
+      overflow: hidden; /* Ukrywa wszelkie elementy wychodzące poza granice kontenera */
     }
   </style>
 </head>
 <body>
 
-    <div class="top_grid">
-        <div class="action_grid" style="width: 25%;">
-            <img src="images/BDZT6fX.png" class="back_img">
-            <p onclick="sendTo('card')" class="back_text">mDowód</p>
-        </div>
-        <p class="title_text" style="text-align: center;">Zeskanuj kod QR</p>
+  <div class="top_grid">
+    <div class="action_grid" style="width: 25%;">
+      <img src="images/BDZT6fX.png" class="back_img">
+      <p onclick="sendTo('card')" class="back_text">mDowód</p>
     </div>
+    <p class="title_text" style="text-align: center;">Zeskanuj kod QR</p>
+  </div>
 
-    <div class="bottom_bar">
-        <div class="bottom_bar_grid">
-            <div class="bottom_element_grid" send="home">
-                <div class="bottom_element_image home_open"></div>
-                <p class="bottom_element_text">Pulpit</p>
-            </div>
-            <div class="bottom_element_grid" send="documents">
-                <div class="bottom_element_image documents"></div>
-                <p class="bottom_element_text open">Dokumenty</p>
-            </div>
-            <div class="bottom_element_grid" send="services">
-                <div class="bottom_element_image services"></div>
-                <p class="bottom_element_text">Usługi</p>
-            </div>
-            <div class="bottom_element_grid" send="qr">
-                <div class="bottom_element_image qr"></div>
-                <p class="bottom_element_text">Kod QR</p>
-            </div>
-            <div class="bottom_element_grid" send="more">
-                <div class="bottom_element_image more"></div>
-                <p class="bottom_element_text">Więcej</p>
-            </div>
-        </div>
+  <div class="bottom_bar">
+    <div class="bottom_bar_grid">
+      <div class="bottom_element_grid" send="home">
+        <div class="bottom_element_image home_open"></div>
+        <p class="bottom_element_text">Pulpit</p>
+      </div>
+      <div class="bottom_element_grid" send="documents">
+        <div class="bottom_element_image documents"></div>
+        <p class="bottom_element_text open">Dokumenty</p>
+      </div>
+      <div class="bottom_element_grid" send="services">
+        <div class="bottom_element_image services"></div>
+        <p class="bottom_element_text">Usługi</p>
+      </div>
+      <div class="bottom_element_grid" send="qr">
+        <div class="bottom_element_image qr"></div>
+        <p class="bottom_element_text">Kod QR</p>
+      </div>
+      <div class="bottom_element_grid" send="more">
+        <div class="bottom_element_image more"></div>
+        <p class="bottom_element_text">Więcej</p>
+      </div>
     </div>
-
+  </div>
 
   <div class="content" style="margin-top: 70px;">
     <p style="text-align: left; margin-bottom: 0px;">Umieść kod qr w ramce aby go zeskanować</p> <br>
@@ -85,7 +87,7 @@
 
     const html5QrcodeScanner = new Html5QrcodeScanner(
       "reader", 
-      { fps: 60, qrbox: { width: '400px', height: '750px' } } // Zmieniamy qrbox, aby dopasować go do dostępnej przestrzeni
+      { fps: 60, qrbox: { width: '100%', height: '100%' } } // Skaner dopasowuje się do całego kontenera
     );
     html5QrcodeScanner.render(onScanSuccess);
   </script>
