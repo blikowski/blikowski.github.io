@@ -13,30 +13,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <style>
-    /* Wyśrodkowanie zawartości na stronie */
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-    .content {
-      text-align: center;
-      width: 400px;
-      height: 600px;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-    #reader {
-      width: 100%; /* Skaner będzie zajmował całą szerokość kontenera */
-      height: 100%; /* Skaner będzie zajmował całą wysokość kontenera */
-      border-radius: 20px;
-      overflow: hidden; /* Ukrywa wszelkie elementy wychodzące poza granice kontenera */
-    }
-    #reader__scan_region {
-      width: 100% !important;  /* Ustawienie na 100% szerokości kontenera */
-      height: 95% !important; /* Ustawienie na 100% wysokości kontenera */
+    .main_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px); /* 100% wysokości minus paski */
+  padding: 20px 0;
+}
+    #camera-container {
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 2px solid #333;
+  height: 600px;
+}
+    #video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
 </head>
@@ -74,22 +70,25 @@
       </div>
     </div>
   </div>
-
+  <div class="main_wrapper">
   <div id="camera-container">
     <video id="video" autoplay playsinline></video>
   </div>
-
+  </div>
   <script>
     async function startCamera() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { exact: "environment" } },
+        const constraints = {
+          video: {
+            facingMode: { ideal: "environment" }  // preferowana tylna kamerka, jeśli dostępna
+          },
           audio: false
-        });
-        const video = document.getElementById('video');
-        video.srcObject = stream;
+        };
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        document.getElementById('video').srcObject = stream;
       } catch (err) {
-        console.error("Błąd przy uzyskiwaniu obrazu z kamery:", err);
+        console.error("Nie udało się uruchomić kamery:", err);
       }
     }
 
