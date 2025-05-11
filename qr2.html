@@ -1,117 +1,93 @@
-<body>
-  <div class="top_grid">
-    <div class="action_grid" style="width: 25%;">
-      <img src="images/BDZT6fX.png" class="back_img">
-      <p onclick="sendTo('card')" class="back_text" style="margin-left: 7px;">mDowód</p>
-    </div>
-    <p class="title_text" style="text-align: center;">Zeskanuj kod QR</p>
-  </div>
-
-  <div class="bottom_bar">
-    <div class="bottom_bar_grid">
-      <div class="bottom_element_grid" send="home">
-        <div class="bottom_element_image home_open"></div>
-        <p class="bottom_element_text">Pulpit</p>
-      </div>
-      <div class="bottom_element_grid" send="documents">
-        <div class="bottom_element_image documents"></div>
-        <p class="bottom_element_text open">Dokumenty</p>
-      </div>
-      <div class="bottom_element_grid" send="services">
-        <div class="bottom_element_image services"></div>
-        <p class="bottom_element_text">Usługi</p>
-      </div>
-      <div class="bottom_element_grid" send="qr">
-        <div class="bottom_element_image qr"></div>
-        <p class="bottom_element_text">Kod QR</p>
-      </div>
-      <div class="bottom_element_grid" send="more">
-        <div class="bottom_element_image more"></div>
-        <p class="bottom_element_text">Więcej</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- QR camera view -->
-  <div id="qr-reader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
-
-  <!-- Ramka skanowania -->
-  <div class="qr-overlay" style="
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 220px;
-      height: 220px;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    ">
-    <div style="
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        border: 4px solid white;
-        border-radius: 16px;
-        opacity: 0.8;
-      ">
-    </div>
-  </div>
-
-  <div class="alert-info" style="
-      position: absolute;
-      top: 80px;
-      left: 16px;
-      right: 16px;
-      background-color: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffeeba;
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
-      font-size: 0.9rem;
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <title>mObywatel</title>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/card.css?v=1.2">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="icon" type="image/x-icon" href="images/otM5jOA.png">
+    <link rel="apple-touch-icon" href="images/otM5jOA.png">
+    <link rel="shortcut icon" href="images/otM5jOA.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+  <style>
+    /* Wyśrodkowanie zawartości na stronie */
+    body {
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 0.5rem;
-      z-index: 10;
-    ">
-    <span style="font-size: 1.2rem;">⚠️</span> Upewnij się, że kod QR pochodzi z wiarygodnego źródła.
-  </div>
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .content {
+      text-align: center;
+      width: 400px;
+      height: 700px;
+    }
+    #reader {
+        border-radius: 20px;
+      width: 100%px; /* Sprawia, że skaner zajmuje całą dostępną szerokość */
+      height: 100%; /* Skaner zajmuje całą wysokość kontenera */
+    }
+  </style>
+</head>
+<body>
 
-  <button class="code-button" onclick="manualEntry()">Wpisz kod</button>
+    <div class="top_grid">
+        <div class="action_grid" style="width: 25%;">
+            <img src="images/BDZT6fX.png" class="back_img">
+            <p onclick="sendTo('card')" class="back_text">mDowód</p>
+        </div>
+        <p class="title_text" style="text-align: center;">Zeskanuj kod QR</p>
+    </div>
+
+    <div class="bottom_bar">
+        <div class="bottom_bar_grid">
+            <div class="bottom_element_grid" send="home">
+                <div class="bottom_element_image home_open"></div>
+                <p class="bottom_element_text">Pulpit</p>
+            </div>
+            <div class="bottom_element_grid" send="documents">
+                <div class="bottom_element_image documents"></div>
+                <p class="bottom_element_text open">Dokumenty</p>
+            </div>
+            <div class="bottom_element_grid" send="services">
+                <div class="bottom_element_image services"></div>
+                <p class="bottom_element_text">Usługi</p>
+            </div>
+            <div class="bottom_element_grid" send="qr">
+                <div class="bottom_element_image qr"></div>
+                <p class="bottom_element_text">Kod QR</p>
+            </div>
+            <div class="bottom_element_grid" send="more">
+                <div class="bottom_element_image more"></div>
+                <p class="bottom_element_text">Więcej</p>
+            </div>
+        </div>
+    </div>
+
+
+  <div class="content" style="margin-top: 70px;">
+    <p style="text-align: left; margin-bottom: 0px;">Umieść kod qr w ramce aby go zeskanować</p> <br>
+    <div id="reader"></div>
+    <button style="margin-top: 15px; width: 400px; height: 50px; border-radius: 20px; color: #014A93; background-color: #f5f6fb; border-color: #014A93; font-size: 20px; font-family: poppins;">Wpisz kod</button>
+  </div>
 
   <script>
-    const onScanSuccess = (decodedText) => {
-      alert("✅ Zeskanowano: " + decodedText);
-    };
-
-    const onScanError = (errorMessage) => {
-      // Można pominąć logowanie
-    };
-
-    const html5QrCode = new Html5Qrcode("qr-reader");
-
-    Html5Qrcode.getCameras().then(devices => {
-      html5QrCode.start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 220, height: 220 }
-        },
-        onScanSuccess,
-        onScanError
-      );
-    }).catch(err => {
-      console.error("🚫 Błąd kamery:", err);
-      alert("Nie udało się uzyskać dostępu do kamery.");
-    });
-
-    function manualEntry() {
-      const code = prompt("Wpisz kod ręcznie:");
-      if (code) {
-        alert("Wprowadzony kod: " + code);
-      }
+    function onScanSuccess(decodedText, decodedResult) {
+      // Wyświetl wynik skanowania
+      document.getElementById('result').textContent = decodedText;
+      // Możesz zatrzymać skanowanie:
+      html5QrcodeScanner.clear();
     }
-  </script>
 
-  <script src="assets/bar.js"></script>
-  <script src="assets/manifest.js"></script>
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", 
+      { fps: 60, qrbox: { width: '100%', height: '100%' } } // Zmieniamy qrbox, aby dopasować go do dostępnej przestrzeni
+    );
+    html5QrcodeScanner.render(onScanSuccess);
+  </script>
 </body>
+</html>
