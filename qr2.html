@@ -85,9 +85,20 @@
       html5QrcodeScanner.clear();
     }
 
+    // Funkcja obliczająca qrbox w zależności od rozmiaru okna
+    function getQrboxSize() {
+      const readerElement = document.getElementById("reader");
+      const width = readerElement.offsetWidth;
+      const height = readerElement.offsetHeight;
+      return { width: width * 0.8, height: height * 0.8 }; // Zmieniamy proporcje, jeśli trzeba
+    }
+
     const html5QrcodeScanner = new Html5QrcodeScanner(
       "reader", 
-      { fps: 60, qrbox: { width: '100%', height: '100%' } } // Skaner dopasowuje się do całego kontenera
+      { 
+        fps: 60, 
+        qrbox: getQrboxSize() // Dynamicznie dopasowujemy qrbox
+      }
     );
     html5QrcodeScanner.render(onScanSuccess);
   </script>
