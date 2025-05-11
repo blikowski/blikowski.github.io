@@ -7,27 +7,7 @@
 </head>
 <body>
 
-    <div id="password-overlay">
-  <h2 style="margin-bottom: 10px;">Wprowadź hasło, aby uzyskać dostęp</h2>
-  <input type="password" id="password-input" placeholder="Hasło" style="padding: 10px; font-size: 16px;">
-  <p id="wrong-password" style="color: red; display: none; margin-top: 10px;">Nieprawidłowe hasło</p>
-  <button onclick="checkPassword()" style="margin-top: 10px; padding: 8px 16px; font-size: 16px;">Wejdź</button>
-</div>
-
-<script>
-    // Zakodowane hasło w Base64 (dla przykładu "password123")
-    const correctPassword = atob("QThmSzktTXFXN2QtWnQ2WHAtQjRjTG0tUnYyUWU="); // ← Hasło zakodowane w Base64
     
-    function checkPassword() {
-      const input = document.getElementById("password-input").value;
-      const error = document.getElementById("wrong-password");
-      if (input === correctPassword) {
-        document.getElementById("password-overlay").style.display = "none";
-      } else {
-        error.style.display = "block";
-      }
-    }
-    </script>
     
     
     
