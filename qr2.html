@@ -94,39 +94,42 @@
 
     <button class="code-button">Wpisz kod</button>
     <script>
-    window.addEventListener('load', () => {
-      const html5QrCode = new Html5Qrcode("qr-reader");
+    const onScanSuccess = (decodedText) => {
+      alert("✅ Zeskanowano: " + decodedText);
+      html5QrCode.stop().then(() => {
+        console.log("Skanowanie zatrzymane.");
+      }).catch(err => console.error("Błąd zatrzymania:", err));
+    };
 
-      Html5Qrcode.getCameras().then(devices => {
-        if (!devices || devices.length === 0) {
-          alert("❌ Nie znaleziono kamery.");
-          return;
-        }
+    const onScanError = (errorMessage) => {
+      // Możesz pominąć logowanie, jeśli irytuje.
+      console.warn("❌ Błąd skanowania:", errorMessage);
+    };
 
-        const cameraId = devices[0].id;
+    const html5QrCode = new Html5Qrcode("qr-reader");
 
-        html5QrCode.start(
-          cameraId,
-          {
-            fps: 10,
-            qrbox: { width: 250, height: 250 }
-          },
-          decodedText => {
-            console.log("✅ QR Code decoded:", decodedText);
-            alert("Zeskanowano: " + decodedText);
-            html5QrCode.stop(); // zatrzymaj skanowanie po sukcesie
-          },
-          errorMessage => {
-            // Błąd odczytu (można pominąć, jeśli zbyt częsty)
-            console.warn("❌ Błąd skanowania:", errorMessage);
-          }
-        );
-
-      }).catch(err => {
-        console.error("❌ Błąd uzyskania dostępu do kamery:", err);
-        alert("Nie można uzyskać dostępu do kamery.");
-      });
+    Html5Qrcode.getCameras().then(devices => {
+      // Lepiej: użyj trybu 'environment', by wymusić tylną kamerę
+      html5QrCode.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 250 }
+        },
+        onScanSuccess,
+        onScanError
+      );
+    }).catch(err => {
+      console.error("🚫 Nie można uzyskać dostępu do kamery:", err);
+      alert("Nie udało się uruchomić kamery.");
     });
+
+    function manualEntry() {
+      const code = prompt("Wpisz kod ręcznie:");
+      if (code) {
+        alert("Wprowadzony kod: " + code);
+      }
+    }
   </script>
     <script src="assets/bar.js"></script>
     <script src="assets/manifest.js"></script>        
